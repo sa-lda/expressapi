@@ -10,6 +10,13 @@ router.get("/", (req, res) => {
   });
 });
 
+
+router.get("/hey", (req, res) => {
+  res.json({
+    hello: "out!"
+  });
+});
+
 app.use(`/.netlify/functions/api`, router);
 
 module.exports = app;
