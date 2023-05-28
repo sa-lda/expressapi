@@ -28,22 +28,21 @@ db.connect((err) => {
   }
 });
 
-const asyncRoute = route => (req, res, next = console.error) =>
-  Promise.resolve(route(req, res)).catch(next);
 
-const myRoute = async (req, res) => {
-  await db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
+router.get("/", async (req, res) => {
+  try {
+    const users = await db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
       if (err) {
           console.log(err.message);
       }
-    
-      res.json({
-        hello: results
-      });
-  });
-};
-
-router.get("/", asyncRoute(myRoute));
+      
+      return results;
+    });
+    res.json(users);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
 
 
 router.get("/hey", (req, res) => {
