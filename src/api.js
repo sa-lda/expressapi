@@ -32,17 +32,15 @@ db.connect((err) => {
 
 
 router.get("/", (req, res) => {
-   /*
-          const resu = await db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
-            if (!err) {
-              return results;
-            } else {
-              console.log(err)
-            }
-          });
-        */
+  db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
+    if (!err) {
+  
   res.json({
-    message: aqui
+    message: results
+  });
+    } else {
+      console.log(err)
+    }
   });
 });
 
