@@ -29,19 +29,17 @@ db.connect((err) => {
 });
 
 
-router.get("/", async (req, res) => {
-  try {
-    const users = await db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
-      if (err) {
-          console.log(err.message);
-      }
-      
-      return results;
-    });
-    res.json(users);
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
+router.get("/", (req, res) => {
+ return new Promise((resolve, reject) => {
+   
+           db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
+            if (!err) {
+              res.json(results);
+            } else {
+              console.log(err)
+            }
+          });
+});
 });
 
 
