@@ -57,7 +57,7 @@ router.get("/", async(req, res) => {
     res.json(rows); // Send the results as JSON response
   } catch (err) {
     console.error('Error executing query:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: err });
   }
 });
 
