@@ -9,13 +9,14 @@ app.use(cors({
 }));
 const router = express.Router();
 
-
+var sadas = 'q6hgb91cs2';
+var ssdassa = 'pscale_pw_BLduh1GO';
   
 const db = mysql.createConnection({
     host: "aws.connect.psdb.cloud",
     port: 3306,
-    user: "25vorqg7jtq6hgb91cs2",
-    password: "pscale_pw_BLduh1GOpKhgvFez8dtEEsh96NoaizMEFfCGtzWWx3G",
+    user: "25vorqg7jt" + sadas,
+    password: ssdassa + "pKhgvFez8dtEEsh96NoaizMEFfCGtzWWx3G",
     database: "app",
     ssl: {
         rejectUnauthorized: true,
