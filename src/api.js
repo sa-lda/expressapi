@@ -14,8 +14,8 @@ const router = express.Router();
 const db = mysql.createConnection({
     host: "aws.connect.psdb.cloud",
     port: 3306,
-    user: "phje0jydvw3jfd77dajl",
-    password: "pscale_pw_zINmbAJpEYcnnVtD3IhVtKfot08Ifghhc1AijW1hvr1",
+    user: "twnqy70xvdzef5ntr98v",
+    password: "pscale_pw_LMJjYkUJznM3g2VXneMBJV4KexIPBdi5LpzXa4ulydS",
     database: "app",
     ssl: {
         rejectUnauthorized: true,
