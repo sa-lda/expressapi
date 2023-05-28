@@ -12,66 +12,41 @@ const router = express.Router();
 var sadas = 'at54h9bey';
 var ssdassa = 'pscale_pw_aOgSoWw5mJM4aPR';
   
-const db = mysql.createConnection({
+const pool = mysql.createPool({
+    connectionLimit: 10, // Adjust this value based on your requirements
     host: "aws.connect.psdb.cloud",
-    port: 3306,
     user: "6sa6f3lkoy9" + sadas,
     password: ssdassa + "lYxIkmkMtE4ORo8UDzOwsFIaVjbf",
     database: "app",
     ssl: {
         rejectUnauthorized: true,
     },
-})
-var aqui = false;
-db.connect((err) => {
-  if (err) {
-    return;
-  } else {
-    aqui = true;
-  }
 });
 
 
-router.get("/", async(req, res) => {
-  /*
-  db.query('SELECT * FROM contact_form', (err, results, fields) => {
-    if (!err) {
-  return results;
-
-    } else {
-
-  return 'erro';
+router.get("/", (req, res) => {
+  pool.getConnection((err, connection) => {
+    if (err) {
+      console.error('Error acquiring MySQL connection:', err);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
     }
-  });
-  
-    res.json({
-      message: output
-    });
-   */
-   try {
-    // Perform MySQL query asynchronously using promises or util.promisify
+
     const query = 'SELECT * FROM contact_form';
-    const rows = await executeQuery(query);
+    connection.query(query, (err, rows) => {
+      connection.release(); // Release the connection back to the pool
 
-
-    res.json(rows); // Send the results as JSON response
-  } catch (err) {
-    console.error('Error executing query:', err);
-    res.status(500).json({ error: err });
-  }
-});
-
-function executeQuery(query) {
-  return new Promise((resolve, reject) => {
-    db.query(query, (err, rows) => {
       if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
+        console.error('Error executing query:', err);
+        res.status(500).json({ error: err });
+        return;
       }
+
+      // Process the query results
+      res.json(rows);
     });
   });
-}
+});
 
 
 router.get("/hey", (req, res) => {
