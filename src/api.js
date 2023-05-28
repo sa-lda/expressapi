@@ -38,7 +38,7 @@ router.get("/", async(req, res) => {
 
     } else {
 
-  return 'erro;
+  return 'erro';
     }
   });
   
