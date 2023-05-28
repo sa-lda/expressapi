@@ -21,16 +21,18 @@ const db = mysql.createConnection({
         rejectUnauthorized: true,
     },
 })
-
+var aqui = false;
 db.connect((err) => {
   if (err) {
     return;
+  } else {
+    aqui = true;
   }
 });
 
 
-router.get("/", async(req, res) => {
-   
+router.get("/", (req, res) => {
+   /*
           const resu = await db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
             if (!err) {
               return results;
@@ -38,7 +40,10 @@ router.get("/", async(req, res) => {
               console.log(err)
             }
           });
-  res.json(resu);
+        */
+  res.json({
+    message: aqui
+  });
 });
 
 
