@@ -1,6 +1,6 @@
 [build]
   functions = "functions"
-  command = "npm install cors && npm run build"
+  command = "npm install cors mysql && npm run build"
 
 [dev]
   publish = "dist"
