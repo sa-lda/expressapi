@@ -32,7 +32,8 @@ db.connect((err) => {
 
 
 router.get("/", async(req, res) => {
-  var output = await db.query('SELECT * FROM contact_form', (err, results, fields) => {
+  /*
+  db.query('SELECT * FROM contact_form', (err, results, fields) => {
     if (!err) {
   return results;
 
@@ -45,7 +46,31 @@ router.get("/", async(req, res) => {
     res.json({
       message: output
     });
+   */
+   try {
+    // Perform MySQL query asynchronously using promises or util.promisify
+    const query = 'SELECT * FROM contact_form';
+    const rows = await executeQuery(query);
+
+
+    res.json(rows); // Send the results as JSON response
+  } catch (err) {
+    console.error('Error executing query:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
+
+function executeQuery(query) {
+  return new Promise((resolve, reject) => {
+    db.query(query, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(rows);
+      }
+    });
+  });
+}
 
 
 router.get("/hey", (req, res) => {
