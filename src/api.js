@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
   pool.getConnection((err, connection) => {
     if (err) {
       console.error('Error acquiring MySQL connection:', err);
-      res.status(500).json({ error: 'Internal server error' });
+      res.status(500).json({ error: err });
       return;
     }
 
