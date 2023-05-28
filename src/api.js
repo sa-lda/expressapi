@@ -31,17 +31,19 @@ db.connect((err) => {
 });
 
 
-router.get("/", (req, res) => {
-  db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
+router.get("/", async(req, res) => {
+  var output = await db.query('SELECT * FROM contact_form LIMIT 30', [], (err, results, fields) => {
     if (!err) {
-  
-  res.json({
-    message: results
-  });
+  return results;
+
     } else {
       console.log(err)
     }
   });
+  
+    res.json({
+      message: output
+    });
 });
 
 
