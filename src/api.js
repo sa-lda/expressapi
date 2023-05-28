@@ -9,7 +9,7 @@ app.use(cors({
 }));
 const router = express.Router();
 
-router.get("/", (req, res) => {
+
   
 const db = mysql.createConnection({
     host: "aws.connect.psdb.cloud",
@@ -22,14 +22,16 @@ const db = mysql.createConnection({
     },
 })
 
-db.connect(function (err) {
-    if (err) {
-        return console.error('error: ' + err.message);
-    }
-    
-    let select = 'SELECT * FROM contact_form LIMIT 30';
+db.connect((err) => {
+  if (err) {
+    return;
+  }
+});
 
-    db.query(select, function (err, results, fields) {
+
+router.get("/", (req, res) => {
+
+    db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
         if (err) {
             console.log(err.message);
         }
@@ -38,13 +40,6 @@ db.connect(function (err) {
         });
     });
 
-    db.end(function (err) {
-        if (err) {
-            return console.log(err.message);
-        }
-    });
-});
-  
 
 });
 
