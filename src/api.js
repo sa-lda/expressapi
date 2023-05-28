@@ -32,15 +32,14 @@ const asyncRoute = route => (req, res, next = console.error) =>
   Promise.resolve(route(req, res)).catch(next);
 
 const myRoute = async (req, res) => {
-  const result = await db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
+  await db.query('SELECT * FROM contact_form LIMIT 30', function (err, results, fields) {
       if (err) {
           console.log(err.message);
       }
-      return results;
-  });
-  
-  res.json({
-    hello: result
+    
+      res.json({
+        hello: results
+      });
   });
 };
 
